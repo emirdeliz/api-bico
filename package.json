@@ -2,8 +2,9 @@
   "name": "fastify-hello-world",
   "version": "1.0.0",
   "description": "A Fastify example to deploy to Render",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "start": "node app.js"
   },
   "repository": {
@@ -17,9 +18,11 @@
   },
   "homepage": "https://github.com/render-examples/fastify-hello-world#readme",
   "dependencies": {
-    "fastify": "^4.17.0"
+    "@types/node": "^22.10.1",
+    "fastify": "^4.17.0",
+    "typescript": "^5.7.2"
   },
   "engines": {
-    "node": "18.x"
+    "node": "23.x"
   }
 }
