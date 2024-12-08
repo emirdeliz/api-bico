@@ -11,8 +11,9 @@ The app in this repo is deployed at [https://fastify.onrender.com](https://fasti
 See https://render.com/docs/deploy-node-fastify-app or follow the steps below:
 
 Create a new web service with the following values:
-  * Build Command: `npm install`
-  * Start Command: `node app.js`
+
+- Build Command: `npm install`
+- Start Command: `node app.js`
 
 Or simply click:
 

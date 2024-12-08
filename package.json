@@ -1,25 +1,42 @@
 {
-  "name": "fastify-hello-world",
+  "name": "api-bico",
   "version": "1.0.0",
-  "description": "A Fastify example to deploy to Render",
+  "description": "Api bico",
   "main": "app.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node app.js"
+    "start": "node app.js",
+    "lint": "eslint './src/**/*.{ts}*' --fix",
+    "format": "prettier --write \"**/*.{ts,md,json}\"",
+    "lint-staged": "lint-staged",
+    "ncu": "ncu --color",
+    "ncu:doctor": "ncu --doctor --color",
+    "ncu:u": "ncu --upgrade --color"
+  },
+  "lint-staged": {
+    "**/*.{ts,json}": [
+      "yarn prettier --write"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/render-examples/fastify-hello-world.git"
+    "url": "git+https://github.com/emirdeliz/api-bico.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/render-examples/fastify-hello-world/issues"
+    "url": "https://github.com/emirdeliz/api-bico/issues"
   },
-  "homepage": "https://github.com/render-examples/fastify-hello-world#readme",
+  "homepage": "https://github.com/emirdeliz/api-bico#readme",
   "dependencies": {
     "@types/node": "^22.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.16.0",
     "fastify": "^4.17.0",
+    "lint-staged": "^15.2.10",
+    "ncu": "^0.2.1",
+    "prettier": "^3.4.2",
     "typescript": "^5.7.2"
   },
   "engines": {
