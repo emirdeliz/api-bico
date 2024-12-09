@@ -1,22 +1,51 @@
-# README
+# Build a RESTful API with Fastify, Prisma & TypeScript
 
-This is the [Fastify](https://www.fastify.io/) [Hello world](https://www.fastify.io/docs/latest/Guides/Getting-Started/) example on [Render](https://render.com).
+![Fastify Application](https://github.com/imvinojanv/fastify-prisma-rest-api/assets/48822560/3f19c3b5-f12c-48b7-9f46-5ac21811753f)
 
-The app in this repo is deployed at [https://fastify.onrender.com](https://fastify.onrender.com).
+## What are we using?
 
-> Note: Fastify's `.listen` method default binding uses `localhost` (`127.0.0.1`), whereas Render requires `0.0.0.0`.
+- Fastify - Web server
+- Prisma - Database ORM
+- Zod - Request and response validation
+- Swagger - API docs
+- TypeScript - Types & other cool stuff
 
-## Deployment
+## What you will need
 
-See https://render.com/docs/deploy-node-fastify-app or follow the steps below:
+- [Postman](https://www.postman.com/) - Make API requests
+- [Prisma studio](https://www.prisma.io/studio) - View data
+- [PostreSQL or MySQL](https://github.com/tomanagle/awesome-docker-compose) - Database
+- [Code editor](https://code.visualstudio.com/) - Edit your code
 
-Create a new web service with the following values:
+## Features
 
-- Build Command: `npm install`
-- Start Command: `node app.js`
+- Create a user
+- Login
+- List users
+- Create a product
+- List products
+- Authentication
+- Request & response validation
+- Swagger docs
 
-Or simply click:
+# Testing
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/render-examples/fastify-hello-world)
+## What are we testing with?
 
-That's it! Your web service will be live on your Render URL as soon as the build finishes.
+- [Node Tap](https://node-tap.org/) - Test framework
+- [fastify.inject](https://www.fastify.io/docs/latest/Guides/Testing/#benefits-of-using-fastifyinject) - Inject HTTP requests
+- [faker-js](@faker-js/faker) - Generate test data
+- [ts-mock-imports](https://www.npmjs.com/package/ts-mock-imports) - Mock imports
+
+## What will you learn?
+
+- How to test the API end-to-end
+- How to inject http requests to your Fastify application
+- How to mock function calls
+- How to test with a test database
+
+## Where can I learn more about testing Fastify?
+
+- [Unit Test Patterns And Strategies](https://github.com/knockaway/unit-test-patterns-and-strategies)
+- [Node Tap documentation](https://node-tap.org/docs/getting-started/)
+- [Fastify documentation](https://www.fastify.io/docs/latest/Guides/Testing/)

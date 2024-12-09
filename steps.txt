@@ -1,0 +1,28 @@
+### Initiate the project
+-   Init npm (`npm init`)
+-   Install TypeScript globally (`npm install -g typescript`)
+    > You can use npm to install TypeScript globally, this means that you can use the `tsc` command anywhere in your terminal
+-   Initialize TypeScript (`npx tsc --init`)
+-   Install some dependencies (`npm i @prisma/client fastify fastify-zod zod zod-to-json-schema fastify-jwt fastify-swagger`)
+-   Install some dev dependencies (`npm i ts-node-dev typescript @types/node --save-dev`)
+
+-   Create a new folder and file (/src/app.ts)
+-   Write the basic code to run server and test the helloworld endpoint
+-   Create new folders (/src/modules/product, /src/modules/user)
+    > Both folder will have each of controllers, schemas, routes, and services
+    -   Create files for controller, schema, route, and service inside the folder (user.route.ts, etc.)
+-   Implement the user.route.ts
+-   Import the userRoutes in app.ts and register the route
+-   Implement the registerUserHandler controller and import it into the userRoutes
+
+-   Initialize the Prisma (`npx prisma init --datasource-provider postgresql`)
+-   Create a new database on neon.tech and copy the db url and paste it into the .env file
+-   Create the prisma schema models
+-   Migrate the schema models (`npx prisma migrate dev --name init`)
+-   Create the utils/prisma.ts file to make the prisma connection
+-   Implement the service file for createUser function (user.service.ts)
+-   Implement the schema with zod (user.schema.ts)
+-   Import the CreateUserInput type into the user.service file as the props' type
+
+### Hash the password using the manual function
+-   Create a new file as hash.ts inside the utils folder
