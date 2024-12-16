@@ -8,6 +8,7 @@
     "prisma:generate": "npx prisma generate",
     "lint": "eslint \"**/*.{ts}\" --fix",
     "format": "prettier --write \"**/*.{ts,md,json}\"",
+    "populate": "npx ts-node src/populate",
     "lint-staged": "lint-staged",
     "ncu": "ncu --color",
     "ncu:doctor": "ncu --doctor --color",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.16.0",
+    "@faker-js/faker": "^9.3.0",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",

@@ -8,23 +8,63 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  name     String?
-  password String
-  salt     String
-  products Product[]
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  name         String        @db.VarChar(255)
+  password     String        @db.VarChar(255)
+  state        String        @db.VarChar(2)
+  city         String        @db.VarChar(255)
+  phone        Int
+  dddPhone     Int
+  professional Job[]         @relation("professional")
+  customer     Job[]         @relation("customer")
+  jobType      JobType[]
+  jobDiscount  JobDiscount[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
-model Product {
-  id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
-  content   String?
-  price     Float
-  ownerId   Int
-  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model JobDiscount {
+  id         Int      @id @default(autoincrement())
+  jobTypeId  Int      @unique
+  jobType    JobType  @relation(fields: [jobTypeId], references: [id])
+  percentage Int
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
 
-  @@index([ownerId])
+model JobType {
+  id          Int          @id @default(autoincrement())
+  name        String       @db.VarChar(255)
+  user        User         @relation(fields: [userId], references: [id])
+  userId      Int
+  jobDiscount JobDiscount?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  Job Job[]
+}
+
+model Job {
+  id                          Int       @id @default(autoincrement())
+  date                        DateTime
+  dateService                 DateTime
+  period                      String?   @db.VarChar(50)
+  observation                 String?   @db.VarChar(1055)
+  deadlineEvaluation          Float
+  priceEvaluation             Float
+  qualityEvaluation           Float
+  afterSalesServiceEvaluation Float
+  professionalId              Int
+  professional                User      @relation("professional", fields: [professionalId], references: [id], onDelete: NoAction)
+  customerId                  Int
+  customer                    User      @relation("customer", fields: [customerId], references: [id], onDelete: NoAction)
+  photos                      String[]  @db.VarChar(255)
+  jobTypeId                   Int
+  jobType                     JobType   @relation(fields: [jobTypeId], references: [id], onDelete: NoAction)
+  createdAt                   DateTime  @default(now())
+  updatedAt                   DateTime  @updatedAt
+
+  @@index([customerId])
 }
