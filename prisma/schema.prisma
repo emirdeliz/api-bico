@@ -14,11 +14,10 @@ model User {
   password     String        @db.VarChar(255)
   state        String        @db.VarChar(2)
   city         String        @db.VarChar(255)
-  phone        Int
-  dddPhone     Int
+  phone        String        @db.VarChar(255)
+  dddPhone     String        @db.VarChar(2)
   professional Job[]         @relation("professional")
   customer     Job[]         @relation("customer")
-  jobType      JobType[]
   jobDiscount  JobDiscount[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -36,35 +35,33 @@ model JobDiscount {
 }
 
 model JobType {
-  id          Int          @id @default(autoincrement())
-  name        String       @db.VarChar(255)
-  user        User         @relation(fields: [userId], references: [id])
-  userId      Int
-  jobDiscount JobDiscount?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  Job Job[]
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  jobDiscount JobDiscount[]
+  Job         Job[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
 
 model Job {
-  id                          Int       @id @default(autoincrement())
+  id                          Int      @id @default(autoincrement())
   date                        DateTime
   dateService                 DateTime
-  period                      String?   @db.VarChar(50)
-  observation                 String?   @db.VarChar(1055)
+  period                      String?  @db.VarChar(50)
+  observation                 String?  @db.VarChar(1055)
   deadlineEvaluation          Float
   priceEvaluation             Float
   qualityEvaluation           Float
   afterSalesServiceEvaluation Float
   professionalId              Int
-  professional                User      @relation("professional", fields: [professionalId], references: [id], onDelete: NoAction)
+  professional                User     @relation("professional", fields: [professionalId], references: [id], onDelete: NoAction)
   customerId                  Int
-  customer                    User      @relation("customer", fields: [customerId], references: [id], onDelete: NoAction)
-  photos                      String[]  @db.VarChar(255)
+  customer                    User     @relation("customer", fields: [customerId], references: [id], onDelete: NoAction)
+  photos                      String[] @db.VarChar(255)
   jobTypeId                   Int
-  jobType                     JobType   @relation(fields: [jobTypeId], references: [id], onDelete: NoAction)
-  createdAt                   DateTime  @default(now())
-  updatedAt                   DateTime  @updatedAt
+  jobType                     JobType  @relation(fields: [jobTypeId], references: [id], onDelete: NoAction)
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
 
   @@index([customerId])
 }

@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker/locale/en';
 import { db } from "../utils/prisma";
+import { getOnlyNumbersFromString } from '../utils/string';
 
 export const main = async () => {
   console.log('--- Starting User Populate ---');
@@ -10,16 +11,16 @@ export const main = async () => {
       password: '123456',
       state: 'SC',
       city: 'Florianópolis',
-      phone: 999223189,
-      dddPhone: 48,
+      phone: '999223189',
+      dddPhone: '48',
     }, {
       email: 'claudia@test.com',
       name: 'Claudia Silva',
       password: '123456',
       state: 'SC',
       city: 'Jaraguá do Sul',
-      phone: 999223111,
-      dddPhone: 47,
+      phone: '999223111',
+      dddPhone: '47',
     }
   ];
 
@@ -28,10 +29,10 @@ export const main = async () => {
       email: faker.internet.email(),
       name: faker.person.fullName(),
       password: faker.internet.password(),
-      state: faker.location.state(),
+      state: faker.location.state({ abbreviated: true }),
       city: faker.location.city(),
-      phone: Number(faker.phone.number({ style: 'national' })),
-      dddPhone: faker.number.int({ min: 11, max: 99 }),
+      phone: getOnlyNumbersFromString(faker.phone.number({ style: 'national' })) || '',
+      dddPhone: String(faker.number.int({ min: 11, max: 99 })),
     });
   }
 

@@ -1,0 +1,1 @@
+export const getOnlyNumbersFromString = (str?: string) => str?.replace(/\D/g, '');

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsnd --respawn --transpile-only --exit-child src/app.ts",
     "prisma:generate": "npx prisma generate",
+    "prisma:push:db": "npx prisma db push",
     "lint": "eslint \"**/*.{ts}\" --fix",
     "format": "prettier --write \"**/*.{ts,md,json}\"",
     "populate": "npx ts-node src/populate",
