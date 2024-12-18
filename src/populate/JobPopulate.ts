@@ -3,8 +3,9 @@ import { db } from "../utils/prisma";
 
 export const main = async () => {
   console.log('--- Starting Job Populate ---');
-  const data = [];
+  await db.job.deleteMany();
 
+  const data = [];
   const userId = await db.user.findMany({ select: { id: true } });
   const jobTypeId = await db.jobType.findMany({ select: { id: true } });
 

@@ -4,6 +4,8 @@ import { getOnlyNumbersFromString } from '../utils/string';
 
 export const main = async () => {
   console.log('--- Starting User Populate ---');
+  await db.user.deleteMany();
+
   const data = [
     {
       email: 'peter@test.com',
