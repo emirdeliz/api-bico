@@ -1,14 +1,9 @@
 import { FastifyInstance } from 'fastify';
-
-import {
-  logoutHandler,
-  getUsersHandler,
-  loginHandler,
-  registerUserHandler,
-} from './user.controller';
 import { $ref } from './user.schema';
+import { UserController } from './user.controller';
 
 async function userRoutes(fastify: FastifyInstance) {
+  const controller = new UserController();
   fastify.post(
     '/',
     {
@@ -19,7 +14,7 @@ async function userRoutes(fastify: FastifyInstance) {
         },
       },
     },
-    registerUserHandler
+    controller.createUser
   );
 
   fastify.post(
@@ -32,7 +27,7 @@ async function userRoutes(fastify: FastifyInstance) {
         },
       },
     },
-    loginHandler
+    controller.login
   );
 
   fastify.get(
@@ -40,7 +35,7 @@ async function userRoutes(fastify: FastifyInstance) {
     {
       preHandler: [fastify.authenticate],
     },
-    getUsersHandler
+    controller.getUsers
   );
 
   fastify.delete(
@@ -48,7 +43,7 @@ async function userRoutes(fastify: FastifyInstance) {
     {
       preHandler: [fastify.authenticate],
     },
-    logoutHandler
+    controller.logout
   );
 }
 

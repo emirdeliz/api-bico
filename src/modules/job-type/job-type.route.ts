@@ -1,23 +1,23 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { JobDiscountController } from './job-discount.controller';
-import { $ref, CreateJobDiscountInput } from './job-discount.schema';
+import { JobTypeController } from './job-type.controller';
+import { $ref, CreateJobTypeInput } from './job-type.schema';
 
-const jobDiscountRoutes = (fastify: FastifyInstance) => {
-  const controller = new JobDiscountController();
+const jobTypeRoutes = (fastify: FastifyInstance) => {
+  const controller = new JobTypeController();
   fastify.post(
     '/',
     {
       preHandler: [fastify.authenticate],
       schema: {
-        body: $ref('jobDiscountInputSchema'),
+        body: $ref('jobTypeInputSchema'),
         response: {
-          201: $ref('jobDiscountViewSchema'),
+          201: $ref('jobTypeViewSchema'),
         },
       },
     },
-    async (request: FastifyRequest<{ Body: CreateJobDiscountInput, Params: { id: number } }>, reply) => {
+    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: number } }>, reply) => {
       try {
-        const result = await controller.createJobDiscount(request);
+        const result = await controller.createJobType(request);
         return reply.status(201).send(result);
       } catch (error) {
         console.error(error);
@@ -35,15 +35,15 @@ const jobDiscountRoutes = (fastify: FastifyInstance) => {
       preHandler: [fastify.authenticate],
       schema: {
         params: { id: { type: 'number' }},
-        body: $ref('jobDiscountInputSchema'),
+        body: $ref('jobTypeInputSchema'),
         response: {
-          201: $ref('jobDiscountViewSchema'),
+          201: $ref('jobTypeViewSchema'),
         },
       },
     },
-    async (request: FastifyRequest<{ Body: CreateJobDiscountInput, Params: { id: number } }>, reply) => {
+    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: number } }>, reply) => {
       try {
-        const result = await controller.updateJobDiscount(request);
+        const result = await controller.updateJobType(request);
         return reply.status(201).send(result);
       } catch (error) {
         console.error(error);
@@ -61,13 +61,13 @@ const jobDiscountRoutes = (fastify: FastifyInstance) => {
       preHandler: [fastify.authenticate],
       schema: {
         response: {
-          201: $ref('jobDiscountsSchema'),
+          201: $ref('jobTypesSchema'),
         },
       },
     },
     async (_request, reply) => {
       try {
-        const result = await controller.getJobDiscounts();
+        const result = await controller.getJobTypes();
         return reply.status(201).send(result);
       } catch (error) {
         console.error(error);
@@ -85,13 +85,13 @@ const jobDiscountRoutes = (fastify: FastifyInstance) => {
       preHandler: [fastify.authenticate],
       schema: {
         response: {
-          201: $ref('jobDiscountViewSchema'),
+          201: $ref('jobTypeViewSchema'),
         },
       },
     },
-    async (request: FastifyRequest<{ Body: CreateJobDiscountInput, Params: { id: number } }>, reply) => {
+    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: number } }>, reply) => {
       try {
-        const result = await controller.getJobDiscountById(request.params.id);
+        const result = await controller.getJobTypeById(request.params.id);
         return reply.status(201).send(result);
       } catch (error) {
         console.error(error);
@@ -104,4 +104,4 @@ const jobDiscountRoutes = (fastify: FastifyInstance) => {
   );
 }
 
-export default jobDiscountRoutes;
+export default jobTypeRoutes;

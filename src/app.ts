@@ -3,8 +3,15 @@ import fjwt, { FastifyJWT } from '@fastify/jwt';
 import fCookie from '@fastify/cookie';
 import userRoutes from './modules/user/user.route';
 import { userSchemas } from './modules/user/user.schema';
+
 import { jobDiscountSchemas } from './modules/job-discount/job-discount.schema';
-import productRoutes from './modules/job-discount/job-discount.route';
+import jobDiscountRoutes from './modules/job-discount/job-discount.route';
+
+import { jobSchemas } from './modules/job/job.schema';
+import jobRoutes from './modules/job/job.route';
+
+import { jobTypeSchemas } from './modules/job-type/job-type.schema';
+import jobTypeRoutes from './modules/job-type/job-type.route';
 
 const fastify = Fastify();
 
@@ -83,7 +90,9 @@ async function main() {
   });
 
   fastify.register(userRoutes, { prefix: 'api/users' }); // user routes
-  fastify.register(productRoutes, { prefix: 'api/products' }); // product routes
+  fastify.register(jobDiscountRoutes, { prefix: 'api/job-discounts' });
+  fastify.register(jobRoutes, { prefix: 'api/jobs' });
+  fastify.register(jobTypeRoutes, { prefix: 'api/job-types' });
 
   try {
     await fastify.listen({ port: 3000, host: '0.0.0.0' });

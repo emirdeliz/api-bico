@@ -15,6 +15,7 @@ export const main = async () => {
       city: 'Florianópolis',
       phone: '999223189',
       dddPhone: '48',
+      salt: '123',
     }, {
       email: 'claudia@test.com',
       name: 'Claudia Silva',
@@ -23,6 +24,7 @@ export const main = async () => {
       city: 'Jaraguá do Sul',
       phone: '999223111',
       dddPhone: '47',
+      salt: '1234',
     }
   ];
 
@@ -35,6 +37,7 @@ export const main = async () => {
       city: faker.location.city(),
       phone: getOnlyNumbersFromString(faker.phone.number({ style: 'national' })) || '',
       dddPhone: String(faker.number.int({ min: 11, max: 99 })),
+      salt: String(faker.number.int({ min: 100, max: 999 })),
     });
   }
 
