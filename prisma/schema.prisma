@@ -16,6 +16,7 @@ model User {
   city         String        @db.VarChar(255)
   phone        String        @db.VarChar(255)
   dddPhone     String        @db.VarChar(2)
+  salt         String        @db.VarChar(255)
   professional Job[]         @relation("professional")
   customer     Job[]         @relation("customer")
   jobDiscount  JobDiscount[]

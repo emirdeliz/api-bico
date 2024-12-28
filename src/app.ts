@@ -1,11 +1,10 @@
 import Fastify, { FastifyRequest, FastifyReply } from 'fastify';
 import fjwt, { FastifyJWT } from '@fastify/jwt';
 import fCookie from '@fastify/cookie';
-
 import userRoutes from './modules/user/user.route';
 import { userSchemas } from './modules/user/user.schema';
-import { productSchemas } from './modules/product/product.schema';
-import productRoutes from './modules/product/product.route';
+import { jobDiscountSchemas } from './modules/job-discount/job-discount.schema';
+import productRoutes from './modules/job-discount/job-discount.route';
 
 const fastify = Fastify();
 
@@ -39,7 +38,7 @@ fastify.post('/helloworld', async (request: FastifyRequest, reply: FastifyReply)
 });
 
 async function main() {
-  for (const schema of [...userSchemas, ...productSchemas]) {
+  for (const schema of [...userSchemas, ...jobDiscountSchemas]) {
     // It should be before you register your routes
     fastify.addSchema(schema);
   }

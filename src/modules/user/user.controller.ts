@@ -1,5 +1,4 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-
 import { CreateUserInput, LoginInput } from './user.schema';
 import { createUser, findUserByEmail, getUsers } from './user.service';
 import { verifyPassword } from '../../utils/hash';
@@ -78,12 +77,10 @@ export async function loginHandler(
 
 export async function getUsersHandler() {
   const users = await getUsers();
-
   return users;
 }
 
 export async function logoutHandler(request: FastifyRequest, reply: FastifyReply) {
   reply.clearCookie('access_token');
-
   return reply.status(201).send({ message: 'Logout successfully' });
 }

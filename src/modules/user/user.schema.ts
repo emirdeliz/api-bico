@@ -10,6 +10,10 @@ const userCore = {
     })
     .email(),
   name: z.string(),
+  state: z.string(),
+  city: z.string(),
+  phone: z.string(),
+  dddPhone: z.string(),
 };
 
 const createUserSchema = z.object({
