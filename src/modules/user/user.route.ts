@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { $ref } from './user.schema';
 import { UserController } from './user.controller';
 
-async function userRoutes(fastify: FastifyInstance) {
+const userRoutes = async(fastify: FastifyInstance) =>{
   const controller = new UserController();
   fastify.post(
     '/',

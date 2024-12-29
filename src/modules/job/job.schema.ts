@@ -9,10 +9,10 @@ const jobInput = {
   deadlineEvaluation: z.number(),
   priceEvaluation: z.number(),
   qualityEvaluation: z.number(),
+  photos: z.array(z.string()),
   afterSalesServiceEvaluation: z.number(),
   professionalId: z.number(),
   customerId: z.number(),
-  photos: z.array(z.string()),
   jobTypeId: z.number(),
 }
 

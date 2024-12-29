@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyRequest } from 'fastify';
 import { JobController } from './job.controller';
 import { $ref, CreateJobInput } from './job.schema';
 
-const jobRoutes = (fastify: FastifyInstance) => {
+const jobRoutes = async (fastify: FastifyInstance) => {
   const controller = new JobController();
   fastify.post(
     '/',
@@ -15,7 +15,7 @@ const jobRoutes = (fastify: FastifyInstance) => {
         },
       },
     },
-    async (request: FastifyRequest<{ Body: CreateJobInput, Params: { id: number } }>, reply) => {
+    async (request: FastifyRequest<{ Body: CreateJobInput }>, reply) => {
       try {
         const result = await controller.createJob(request);
         return reply.status(201).send(result);
@@ -34,7 +34,6 @@ const jobRoutes = (fastify: FastifyInstance) => {
     {
       preHandler: [fastify.authenticate],
       schema: {
-        params: { id: { type: 'number' }},
         body: $ref('jobInputSchema'),
         response: {
           201: $ref('jobViewSchema'),

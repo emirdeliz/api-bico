@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyRequest } from 'fastify';
 import { JobDiscountController } from './job-discount.controller';
 import { $ref, CreateJobDiscountInput } from './job-discount.schema';
 
-const jobDiscountRoutes = (fastify: FastifyInstance) => {
+const jobDiscountRoutes = async(fastify: FastifyInstance) => {
   const controller = new JobDiscountController();
   fastify.post(
     '/',
@@ -15,7 +15,7 @@ const jobDiscountRoutes = (fastify: FastifyInstance) => {
         },
       },
     },
-    async (request: FastifyRequest<{ Body: CreateJobDiscountInput, Params: { id: number } }>, reply) => {
+    async (request: FastifyRequest<{ Body: CreateJobDiscountInput }>, reply) => {
       try {
         const result = await controller.createJobDiscount(request);
         return reply.status(201).send(result);
@@ -34,7 +34,6 @@ const jobDiscountRoutes = (fastify: FastifyInstance) => {
     {
       preHandler: [fastify.authenticate],
       schema: {
-        params: { id: { type: 'number' }},
         body: $ref('jobDiscountInputSchema'),
         response: {
           201: $ref('jobDiscountViewSchema'),

@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyRequest } from 'fastify';
 import { JobTypeController } from './job-type.controller';
 import { $ref, CreateJobTypeInput } from './job-type.schema';
 
-const jobTypeRoutes = (fastify: FastifyInstance) => {
+const jobTypeRoutes = async (fastify: FastifyInstance) => {
   const controller = new JobTypeController();
   fastify.post(
     '/',
@@ -34,7 +34,6 @@ const jobTypeRoutes = (fastify: FastifyInstance) => {
     {
       preHandler: [fastify.authenticate],
       schema: {
-        params: { id: { type: 'number' }},
         body: $ref('jobTypeInputSchema'),
         response: {
           201: $ref('jobTypeViewSchema'),
