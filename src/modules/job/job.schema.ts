@@ -32,7 +32,7 @@ const jobViewSchema = z.object({
 });
 
 const jobsSchema = z.array(jobViewSchema);
-
+ 
 export type CreateJobInput = z.infer<typeof jobInputSchema>;
 
 export type JobView = z.infer<typeof jobViewSchema>;

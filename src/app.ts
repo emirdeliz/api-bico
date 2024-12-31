@@ -91,8 +91,8 @@ async function main() {
 
   fastify.register(userRoutes, { prefix: 'api/users' });
   fastify.register(jobDiscountRoutes, { prefix: 'api/job-discounts' });
-  // fastify.register(jobRoutes, { prefix: 'api/jobs' });
-  // fastify.register(jobTypeRoutes, { prefix: 'api/job-types' });
+  fastify.register(jobRoutes, { prefix: 'api/jobs' });
+  fastify.register(jobTypeRoutes, { prefix: 'api/job-types' });
 
   try {
     await fastify.listen({ port: 3000, host: '0.0.0.0' });
