@@ -44,8 +44,13 @@ fastify.post('/helloworld', async (request: FastifyRequest, reply: FastifyReply)
   return { message: 'Hello World!' };
 });
 
-async function main() {
-  for (const schema of [...userSchemas, ...jobDiscountSchemas]) {
+const main = async () => {
+  for (const schema of [
+    ...userSchemas,
+    ...jobDiscountSchemas,
+    ...jobSchemas,
+    ...jobTypeSchemas
+  ]) {
     // It should be before you register your routes
     fastify.addSchema(schema);
   }
