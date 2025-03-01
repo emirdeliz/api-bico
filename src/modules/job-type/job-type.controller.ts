@@ -1,28 +1,32 @@
-import { FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyRequest } from 'fastify';
 import { CreateJobTypeInput } from './job-type.schema';
-import { JobTypeService } from './job-type.service';
+import { JobTypeModel } from './job-type.model';
+import { ObjectId, Repository } from 'typeorm';
 
 export class JobTypeController {
-  constructor(public jobTypeService = new JobTypeService()) {}
-  
+  private repository: Repository<JobTypeModel>;
+  constructor(fastify: FastifyInstance) {
+    this.repository = fastify.orm.getRepository(JobTypeModel);
+  }
+
   createJobType = async (request: FastifyRequest<{ Body: CreateJobTypeInput }>) => {
-    const jobType = await this.jobTypeService.createJobType(request.body);
+    const jobType = await this.repository.save(request.body);
     return jobType;
   }
 
-  updateJobType = async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: number }}>) => {
+  updateJobType = async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: string } }>) => {
     const { id } = request.params;
-    const jobTypes = await this.jobTypeService.updateJobType(id, request.body);
-    return jobTypes;
+    const jobType = await this.repository.update(new ObjectId(id), request.body);
+    return jobType;
   }
 
   getJobTypes = async () => {
-    const jobTypes = await this.jobTypeService.getJobTypes();
+    const jobTypes = await this.repository.find();
     return jobTypes;
   }
 
-  getJobTypeById = async (id: number) => {
-    const jobTypes = await this.jobTypeService.getJobTypeById(id);
-    return jobTypes;
+  getJobTypeById = async (id: string) => {
+    const jobType = await this.repository.findOneBy({ id });
+    return jobType;
   }
 }

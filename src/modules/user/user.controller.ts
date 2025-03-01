@@ -1,13 +1,18 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserInput, LoginInput } from './user.schema';
-import { UserService } from './user.service';
 import { verifyPassword } from '../../utils/hash';
+import { Repository } from 'typeorm';
+import { UserModel } from './user.model';
 
 export class UserController {
-  constructor(public userService = new UserService()) { }
+  private repository: Repository<UserModel>;
+
+  constructor(fastify: FastifyInstance) {
+    this.repository = fastify.orm.getRepository(UserModel);
+  }
   
   createUser = async (request: FastifyRequest<{ Body: CreateUserInput }>) => { 
-    const user = await this.userService.createUser(request.body);
+    const user = await this.repository.save(request.body);
     return user;
   }
 
@@ -15,7 +20,7 @@ export class UserController {
     const body = request.body;
 
     // Find a user by email
-    const user = (await this.userService.findUserByEmail(body.email)).response;
+    const user = (await this.repository.findOneBy({ email: body.email }));
 
     if (!user) {
       return reply.status(401).send({
@@ -60,7 +65,7 @@ export class UserController {
   }
 
   getUsers = async () => {
-    const users = await this.userService.getUsers();
+    const users = await this.repository.find();
     return users;
   }
 }

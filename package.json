@@ -5,15 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsnd --respawn --transpile-only --exit-child src/app.ts",
-    "prisma:generate": "npx prisma generate",
-    "prisma:push:db": "npx prisma db push",
     "lint": "eslint \"**/*.{ts}\" --fix",
     "format": "prettier --write \"**/*.{ts,md,json}\"",
     "populate": "npx ts-node src/populate",
     "lint-staged": "lint-staged",
     "ncu": "ncu --color",
-    "ncu:doctor": "ncu --doctor --color",
-    "ncu:u": "ncu --upgrade --color"
+    "ncu:u": "npx npm-check-updates -u"
   },
   "lint-staged": {
     "**/*.{ts,json}": [
@@ -23,29 +20,32 @@
   "author": "Emir Marques",
   "license": "ISC",
   "dependencies": {
-    "@fastify/cookie": "^9.3.1",
-    "@fastify/jwt": "^8.0.0",
-    "@fastify/swagger": "^8.14.0",
-    "@fastify/swagger-ui": "^3.0.0",
-    "@prisma/client": "^5.13.0",
-    "fastify": "^4.26.2",
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/jwt": "^9.0.4",
+    "@fastify/swagger": "^9.4.2",
+    "@fastify/swagger-ui": "^5.2.2",
+    "fastify": "^5.2.1",
     "fastify-zod": "^1.4.0",
-    "lint-staged": "^15.3.0",
+    "lint-staged": "^15.4.3",
     "ncu": "^0.2.1",
-    "prettier": "^3.4.2",
-    "zod": "^3.23.4",
-    "zod-to-json-schema": "^3.23.0"
+    "pg": "^8.13.3",
+    "prettier": "^3.5.2",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20",
+    "typeorm-fastify-plugin": "^3.0.0",
+    "zod": "^3.24.2",
+    "zod-to-json-schema": "^3.24.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.17.0",
-    "@faker-js/faker": "^9.3.0",
-    "@types/node": "^22.10.2",
-    "@typescript-eslint/eslint-plugin": "^8.18.2",
-    "@typescript-eslint/parser": "^8.18.2",
-    "eslint": "^9.17.0",
-    "globals": "^15.14.0",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
+    "@faker-js/faker": "^9.5.1",
+    "@types/node": "^22.13.8",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   }
 }

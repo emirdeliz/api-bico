@@ -1,28 +1,32 @@
-import { FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyRequest } from 'fastify';
 import { CreateJobDiscountInput } from './job-discount.schema';
-import { JobDiscountService } from './job-discount.service';
+import { JobDiscountModel } from './job-discount.model';
+import { ObjectId, Repository } from 'typeorm';
 
 export class JobDiscountController {
-  constructor(public jobDiscountService = new JobDiscountService()) {}
+  private repository: Repository<JobDiscountModel>;
+  constructor(fastify: FastifyInstance) {
+    this.repository = fastify.orm.getRepository(JobDiscountModel);
+  }
   
   createJobDiscount = async (request: FastifyRequest<{ Body: CreateJobDiscountInput }>) => {
-    const jobDiscount = await this.jobDiscountService.createJobDiscount(request.body);
+    const jobDiscount = await this.repository.save(request.body);
     return jobDiscount;
   }
 
-  updateJobDiscount = async (request: FastifyRequest<{ Body: CreateJobDiscountInput, Params: { id: number }}>) => {
+  updateJobDiscount = async (request: FastifyRequest<{ Body: CreateJobDiscountInput, Params: { id: string }}>) => {
     const { id } = request.params;
-    const jobDiscounts = await this.jobDiscountService.updateJobDiscount(id, request.body);
-    return jobDiscounts;
+    const jobDiscount = await this.repository.update(new ObjectId(id), request.body);
+    return jobDiscount;
   }
 
   getJobDiscounts = async () => {
-    const jobDiscounts = await this.jobDiscountService.getJobDiscounts();
+    const jobDiscounts = await this.repository.find();
     return jobDiscounts;
   }
 
-  getJobDiscountById = async (id: number) => {
-    const jobDiscounts = await this.jobDiscountService.getJobDiscountById(id);
-    return jobDiscounts;
+  getJobDiscountById = async (id: string) => {
+    const jobDiscount = await this.repository.findOneBy({ id });
+    return jobDiscount;
   }
 }

@@ -1,6 +1,7 @@
 import Fastify, { FastifyRequest, FastifyReply } from 'fastify';
-import fjwt, { FastifyJWT } from '@fastify/jwt';
+import fjwt from '@fastify/jwt';
 import fCookie from '@fastify/cookie';
+
 import userRoutes from './modules/user/user.route';
 import { userSchemas } from './modules/user/user.schema';
 
@@ -12,16 +13,14 @@ import jobRoutes from './modules/job/job.route';
 
 import { jobTypeSchemas } from './modules/job-type/job-type.schema';
 import jobTypeRoutes from './modules/job-type/job-type.route';
+import { registerDb } from './db';
 
 const fastify = Fastify();
 
+registerDb(fastify);
+
 fastify.register(fjwt, {
   secret: process.env.JWT_SECRET || 'imvinojan02061999xxxx',
-});
-
-fastify.addHook('preHandler', (req, res, next) => {
-  req.jwt = fastify.jwt;
-  return next();
 });
 
 fastify.register(fCookie, {
@@ -36,12 +35,8 @@ fastify.decorate('authenticate', async (request: FastifyRequest, reply: FastifyR
     return reply.status(401).send({ message: 'Authentication required' });
   }
 
-  const decoded = request.jwt.verify<FastifyJWT['user']>(token);
-  request.user = decoded;
-});
-
-fastify.post('/helloworld', async (request: FastifyRequest, reply: FastifyReply) => {
-  return { message: 'Hello World!' };
+  const decoded = fastify.jwt.decode(token, { complete: true });
+  request.user = decoded ? JSON.parse(decoded.toString()) : null;
 });
 
 const main = async () => {
