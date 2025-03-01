@@ -3,7 +3,7 @@ import { JobTypeController } from './job-type.controller';
 import { $ref, CreateJobTypeInput } from './job-type.schema';
 
 const jobTypeRoutes = async (fastify: FastifyInstance) => {
-  const controller = new JobTypeController();
+  const controller = new JobTypeController(fastify);
   fastify.post(
     '/',
     {
@@ -15,7 +15,7 @@ const jobTypeRoutes = async (fastify: FastifyInstance) => {
         },
       },
     },
-    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: number } }>, reply) => {
+    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: string } }>, reply) => {
       try {
         const result = await controller.createJobType(request);
         return reply.status(201).send(result);
@@ -40,7 +40,7 @@ const jobTypeRoutes = async (fastify: FastifyInstance) => {
         },
       },
     },
-    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: number } }>, reply) => {
+    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: string } }>, reply) => {
       try {
         const result = await controller.updateJobType(request);
         return reply.status(201).send(result);
@@ -88,7 +88,7 @@ const jobTypeRoutes = async (fastify: FastifyInstance) => {
         },
       },
     },
-    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: number } }>, reply) => {
+    async (request: FastifyRequest<{ Body: CreateJobTypeInput, Params: { id: string } }>, reply) => {
       try {
         const result = await controller.getJobTypeById(request.params.id);
         return reply.status(201).send(result);
