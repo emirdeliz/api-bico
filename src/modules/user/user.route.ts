@@ -3,7 +3,7 @@ import { $ref } from './user.schema';
 import { UserController } from './user.controller';
 
 const userRoutes = async(fastify: FastifyInstance) =>{
-  const controller = new UserController();
+  const controller = new UserController(fastify);
   fastify.post(
     '/',
     {
