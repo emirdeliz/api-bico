@@ -3,16 +3,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ObjectIdColumn,
-  OneToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { UserModel } from '../user/user.model';
 import { JobTypeModel } from '../job-type/job-type.model';
 
-@Entity()
+@Entity({ name: 'job' })
 export class JobModel extends BaseEntity { 
-  @ObjectIdColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column()
@@ -39,16 +39,16 @@ export class JobModel extends BaseEntity {
   @Column()
   afterSalesServiceEvaluation!: number;
 
-  @OneToMany(() => UserModel, (user) => user.id)
+  @ManyToOne(() => UserModel, (user) => user.id)
   professional!: UserModel;
 
-  @OneToMany(() => UserModel, (user) => user.id)
+  @ManyToOne(() => UserModel, (user) => user.id)
   customer!: UserModel;
 
   @Column('simple-array', { nullable: true, array: true })
   photos!: Array<string>;
 
-  @OneToMany(() => JobTypeModel, (jobType) => jobType.id)
+  @ManyToOne(() => JobTypeModel, (jobType) => jobType.id)
   jobType!: JobModel;
     
   @CreateDateColumn({ type: 'timestamp' })

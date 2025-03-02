@@ -6,7 +6,7 @@ import { UserModel } from '../modules/user/user.model';
 export const main = async (datasource: DataSource) => {
   console.log('--- Starting User Populate ---');
   const repository = datasource.getRepository(UserModel);
-  await repository.delete('*');
+  await repository.clear();
 
   const data = [
     {

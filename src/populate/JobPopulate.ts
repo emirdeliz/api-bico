@@ -9,7 +9,7 @@ export const main = async (datasource: DataSource) => {
   const repository = datasource.getRepository(JobModel);
   const repositoryUser = datasource.getRepository(UserModel);
   const repositoryJobType = datasource.getRepository(JobTypeModel);
-  await repository.delete('*');
+  await repository.clear();
 
   const user = await repositoryUser.find();
   const jobType = await repositoryJobType.find();

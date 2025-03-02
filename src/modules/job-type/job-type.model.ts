@@ -2,15 +2,15 @@ import {
   Entity,
   Column,
   BaseEntity,
-  ObjectIdColumn,
   UpdateDateColumn,
   CreateDateColumn,
-  Index
+  Index,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 
-@Entity()
+@Entity({ name:'job_type' })
 export class JobTypeModel extends BaseEntity { 
-  @ObjectIdColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column()

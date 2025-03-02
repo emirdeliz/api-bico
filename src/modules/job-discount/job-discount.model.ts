@@ -3,25 +3,25 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ObjectIdColumn,
-  OneToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { JobTypeModel } from "../job-type/job-type.model";
 import { UserModel } from "../user/user.model";
 
-Entity()
+@Entity({ name: 'job_discount' })
 export class JobDiscountModel extends BaseEntity { 
-  @ObjectIdColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column()
   percentage!: number;
 
-  @OneToMany(() => JobTypeModel, (jobType) => jobType.id)
+  @ManyToOne(() => JobTypeModel, (jobType) => jobType.id)
   jobType!: JobTypeModel;
   
-  @OneToMany(() => UserModel, (user) => user.id)
+  @ManyToOne(() => UserModel, (user) => user.id)
   user!: UserModel
 
   @CreateDateColumn({ type: 'timestamp' })

@@ -4,13 +4,13 @@ import {
   CreateDateColumn,
   Entity,
   Index,
-  ObjectIdColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'user' })
 export class UserModel extends BaseEntity { 
-  @ObjectIdColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column()
