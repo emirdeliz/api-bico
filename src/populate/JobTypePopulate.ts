@@ -9,7 +9,7 @@ export const main = async (datasource: DataSource) => {
 
   for (let i = 0; i < 18; i++) {
     const jobType = faker.person.jobArea();
-    const added = await repository.findOneBy({ name: jobType });
+    const added = !!(await repository.findOneBy({ name: jobType }));
     if (!added) {
       await repository.save({
         name: jobType,
