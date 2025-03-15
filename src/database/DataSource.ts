@@ -10,7 +10,7 @@ import { UserModel } from '../modules/user/user.model';
 import { JobModel } from '../modules/job/job.model';
 import { JobDiscountModel } from '../modules/job-discount/job-discount.model';
 
-const options: DataSourceOptions & SeederOptions = {
+export const dsOptions: DataSourceOptions & SeederOptions = {
   type: 'postgres',
   database: process.env.DB_DATABASE || 'bico',
   host: process.env.DB_HOST || 'localhost',
@@ -23,4 +23,4 @@ const options: DataSourceOptions & SeederOptions = {
   
 };
 
-export const dataSource = new DataSource(options);
+export const dataSource = new DataSource(dsOptions);

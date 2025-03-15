@@ -21,9 +21,6 @@ export class UserModel extends BaseEntity {
   name!: string;
 
   @Column()
-  password!: string;
-
-  @Column()
   state!: string;
 
   @Column()
@@ -37,6 +34,9 @@ export class UserModel extends BaseEntity {
 
   @Column()
   salt!: string;
+
+  @Column()
+  hash!: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;

@@ -17,7 +17,7 @@ const jobInput = {
 }
 
 const jobView = {
-  id: z.number(),
+  id: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
 };
@@ -27,7 +27,6 @@ const jobInputSchema = z.object({
 });
 
 const jobViewSchema = z.object({
-  ...jobInput,
   ...jobView,
 });
 

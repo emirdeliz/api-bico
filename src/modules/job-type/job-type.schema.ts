@@ -6,7 +6,7 @@ const jobTypeInput = {
 }
 
 const jobTypeView = {
-  id: z.number(),
+  id: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
 };

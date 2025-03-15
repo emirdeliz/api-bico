@@ -8,7 +8,7 @@ const jobDiscountInput = {
 }
 
 const jobDiscountView = {
-  id: z.number(),
+  id: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
 };
@@ -18,7 +18,6 @@ const jobDiscountInputSchema = z.object({
 });
 
 const jobDiscountViewSchema = z.object({
-  ...jobDiscountInput,
   ...jobDiscountView,
 });
 

@@ -1,6 +1,8 @@
 import Fastify, { FastifyRequest, FastifyReply } from 'fastify';
 import fjwt from '@fastify/jwt';
 import fCookie from '@fastify/cookie';
+import swagger from '@fastify/swagger';
+import swaggerUi from '@fastify/swagger-ui';
 
 import userRoutes from './modules/user/user.route';
 import { userSchemas } from './modules/user/user.schema';
@@ -14,6 +16,7 @@ import jobRoutes from './modules/job/job.route';
 import { jobTypeSchemas } from './modules/job-type/job-type.schema';
 import jobTypeRoutes from './modules/job-type/job-type.route';
 import { registerDb } from './database';
+import { UserPayload } from '../global';
 
 const fastify = Fastify();
 
@@ -34,9 +37,8 @@ fastify.decorate('authenticate', async (request: FastifyRequest, reply: FastifyR
   if (!token) {
     return reply.status(401).send({ message: 'Authentication required' });
   }
-
-  const decoded = fastify.jwt.decode(token, { complete: true });
-  request.user = decoded ? JSON.parse(decoded.toString()) : null;
+  const decoded = request.server.jwt.decode(token, { complete: true });
+  request.user = decoded as UserPayload;
 });
 
 const main = async () => {
@@ -50,38 +52,22 @@ const main = async () => {
     fastify.addSchema(schema);
   }
 
-  fastify.register(require('@fastify/swagger'), {});
-  fastify.register(require('@fastify/swagger-ui'), {
-    routePrefix: '/docs',
-    swagger: {
-      info: {
-        title: 'Fastify Prisma REST API',
-        description: 'A REST API built with Fastify, Prisma and TypeScript',
-        version: '1.0.0',
-        contact: {
-          name: 'Vinojan Abhimanyu',
-          url: 'https://vinojan.online',
-          email: 'imvinojanv@gmail.com',
-        },
-      },
-      externalDocs: {
-        url: 'https://github.com/imvinojanv/fastify-prisma-rest-api',
-        description: 'Fastify Tutorial source code is on GitHub',
-      },
-      host: '0.0.0.0:3000',
-      basePath: '/',
-      schemes: ['http', 'https'],
-      consumes: ['application/json'],
-      produces: ['application/json'],
-    },
+  fastify.register(swagger, {});
+  fastify.register(swaggerUi, {
+    routePrefix: '/documentation',
     uiConfig: {
-      docExpansion: 'none', // expand/not all the documentations none|list|full
-      deepLinking: true,
+      docExpansion: 'full',
+      deepLinking: false
     },
-    staticCSP: false,
-    transformStaticCSP: (header: any) => header,
-    exposeRoute: true,
-  });
+    uiHooks: {
+      onRequest: function (_request, _reply, next) { next() },
+      preHandler: function (_request, _reply, next) { next() }
+    },
+    staticCSP: true,
+    transformStaticCSP: (header) => header,
+    transformSpecification: (swaggerObject) => { return swaggerObject },
+    transformSpecificationClone: true
+  })
 
   // Executes Swagger
   fastify.ready((err) => {

@@ -32,7 +32,7 @@ export class UserController {
     const isValidPassword = verifyPassword({
       candidatePassword: body.password,
       salt: user.salt,
-      hash: user.password,
+      hash: user.hash,
     });
 
     if (!isValidPassword) {
@@ -47,7 +47,8 @@ export class UserController {
       email: user.email,
       name: user.name,
     };
-    const token = request.jwt.sign(payload);
+
+    const token = request.server.jwt.sign(payload);
 
     reply.setCookie('access_token', token, {
       path: '/',
