@@ -19,6 +19,9 @@ const jobDiscountInputSchema = z.object({
 
 const jobDiscountViewSchema = z.object({
   ...jobDiscountView,
+  user: z.object({ id: z.string(), email: z.string() }),
+  jobType: z.object({ id: z.string(), name: z.string() }),
+  percentage: z.number(),
 });
 
 const jobDiscountsSchema = z.array(jobDiscountViewSchema);

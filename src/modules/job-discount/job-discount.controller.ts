@@ -21,7 +21,7 @@ export class JobDiscountController {
   }
 
   getJobDiscounts = async () => {
-    const jobDiscounts = await this.repository.find();
+    const jobDiscounts = await this.repository.find({ relations: ['jobType', 'user'] });
     return jobDiscounts;
   }
 

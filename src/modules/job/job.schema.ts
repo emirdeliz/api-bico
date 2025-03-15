@@ -11,9 +11,9 @@ const jobInput = {
   qualityEvaluation: z.number(),
   photos: z.array(z.string()),
   afterSalesServiceEvaluation: z.number(),
-  professionalId: z.number(),
-  customerId: z.number(),
-  jobTypeId: z.number(),
+  professionalId: z.string(),
+  customerId: z.string(),
+  jobTypeId: z.string(),
 }
 
 const jobView = {
@@ -28,6 +28,18 @@ const jobInputSchema = z.object({
 
 const jobViewSchema = z.object({
   ...jobView,
+  date: z.date(),
+  dateService: z.date(),
+  period: z.string().optional(),
+  observation: z.string().optional(),
+  deadlineEvaluation: z.number(),
+  priceEvaluation: z.number(),
+  qualityEvaluation: z.number(),
+  photos: z.array(z.string()),
+  afterSalesServiceEvaluation: z.number(),
+  professional: z.object({ id: z.string(), email: z.string() }),
+  customer: z.object({ id: z.string(), email: z.string() }),
+  jobType: z.object({ id: z.string(), name: z.string() }),
 });
 
 const jobsSchema = z.array(jobViewSchema);

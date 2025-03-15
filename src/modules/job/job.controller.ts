@@ -21,7 +21,7 @@ export class JobController {
   }
 
   getJobs = async () => {
-    const jobs = await this.repository.find();
+    const jobs = await this.repository.find({ relations: ['customer', 'professional', 'jobType'] });
     return jobs;
   }
 
