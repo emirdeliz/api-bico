@@ -15,3 +15,4 @@ export const registerDb = async(fastify: FastifyInstance) => {
     logging: process.env.NODE_ENV === "dev",
   });
 }
+

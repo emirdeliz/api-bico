@@ -7,7 +7,9 @@
     "dev": "tsnd --respawn --transpile-only --exit-child src/app.ts",
     "lint": "eslint \"**/*.{ts}\" --fix",
     "format": "prettier --write \"**/*.{ts,md,json}\"",
-    "populate": "npx ts-node src/populate",
+    "db:seed": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d src/database/DataSource.ts",
+    "db:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:create -d src/database/DataSource.ts",
+    "db:drop": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop -d src/database/DataSource.ts",
     "lint-staged": "lint-staged",
     "ncu": "ncu --color",
     "ncu:u": "npx npm-check-updates -u"
@@ -32,6 +34,7 @@
     "prettier": "^3.5.2",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20",
+    "typeorm-extension": "^3.7.0",
     "typeorm-fastify-plugin": "^3.0.0",
     "zod": "^3.24.2",
     "zod-to-json-schema": "^3.24.3"

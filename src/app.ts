@@ -13,7 +13,7 @@ import jobRoutes from './modules/job/job.route';
 
 import { jobTypeSchemas } from './modules/job-type/job-type.schema';
 import jobTypeRoutes from './modules/job-type/job-type.route';
-import { registerDb } from './db';
+import { registerDb } from './database';
 
 const fastify = Fastify();
 
